@@ -10,7 +10,7 @@ output: pdf_document
 
 library(pacman)
 
-p_load(readr,data.table,tidyverse.ggplot2,tidymodels,ranger,parsnip,purrr,magrittr,lubridate)
+p_load(readr,data.table,tidyverse,ggplot2,tidymodels,ranger,parsnip,purrr,magrittr,lubridate,parallel,pbapply,stringr)
 
 #We'll add more as needed
 ```
@@ -61,5 +61,44 @@ reviews_sum
 #Interesting that 4.0 is the first quartile in review rating... people like what they listen to?
 
 #mean is somewhat below the median for this data set. Let's check it out.
+```
+```{r}
+#let's do some visualization
+ #First, simplify the name of the dataset
+
+rev_data <- music_album_reviews
+
+#find the length of each review. We're going to plot that against the rating each album recieved in the review
+
+rev_data$rev_length <- str_length(rev_data$Review)
+
+rev_data %>% glimpse()
+
+rating_chart <- ggplot(rev_data, aes(x=rev_length,y=Rating, color=rev_length)) + geom_boxplot() + facet_wrap(vars(Rating))
+
+
+rating_chart
+```
+```{r}
+#Let's do some cleaning. 
+#Impute to remove any NAs with the mean of the Ratings
+
+rev_data$Rating[is.na(rev_data$Rating)] <- mean(rev_data$Rating, na.rm=T)
+
+anyNA(rev_data$Rating)
+
+#We now can see we have no missing values and can use the data with assurance it's clean
+```
+
+```{r}
+#How many cores are we working with?
+
+detectCores(all.tests = FALSE, logical = TRUE)
+
+#12. Cool. Let's use 10
+
+cls <- makeCluster(10)
+
+
 ```
 
