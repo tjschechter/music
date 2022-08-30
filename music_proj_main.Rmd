@@ -31,8 +31,24 @@ lyrics_sum <- summary(lyrics_data)
 
 lyrics_sum
 
+#It's all character data in lyrics_data
+
 artists_sum <- artists_data %>% summary()
 
 artists_sum
+
+#3/5 is character, 2/5 is numerical
+```
+
+```{r}
+#continue onto genre and album review datasets
+
+genre_sum <- music_genre %>% summary()
+
+reviews_sum <- music_album_reviews %>% summary()
+
+genre_sum
+
+reviews_sum
 ```
 
