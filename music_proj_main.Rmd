@@ -19,6 +19,11 @@ p_load(readr,data.table,tidyverse,ggplot2,tidymodels,ranger,parsnip,purrr,magrit
 
 #After that, it's time to load in datasets
 
+lyrics_data <- "~/data_work/music_data/lyrics-data.csv" %>% read.csv()
+artists_data <-"~/data_work/music_data/artists-data.csv" %>% read.csv()
+music_album_reviews <- "~/data_work/music_data/music_album_reviews.csv" %>% read.csv()
+music_genre <- "~/data_work/music_data/music_genre.csv" %>% read.csv() 
+
 #Imported directly from the directory on the bottom-right
 ```
 
@@ -196,6 +201,63 @@ genre_plot1 <- ggplot(genre_data, aes(x=energy,y=popularity, color=music_genre))
 genre_plot1
 
 #Wow... this is cluttered.
+
+```
+```{r}
+#Create a few new variables to filter it down.
+
+summary(genre_data)
+
+#clean and impute anything that needs it
+
+genre_data$popularity[is.na(genre_data$popularity)] <- mean(genre_data$popularity, na.rm=T)
+genre_data$acousticness[is.na(genre_data$acousticness)] <- mean(genre_data$acousticness, na.rm=T)
+genre_data$danceability[is.na(genre_data$danceability)] <- mean(genre_data$danceability, na.rm=T)
+genre_data$liveness[is.na(genre_data$liveness)] <- mean(genre_data$liveness, na.rm=T)
+genre_data$energy[is.na(genre_data$energy)] <- mean(genre_data$energy, na.rm=T)
+genre_data$instrumentalness[is.na(genre_data$instrumentalness)] <- mean(genre_data$instrumentalness, na.rm=T)
+genre_data$loudness[is.na(genre_data$loudness)] <- mean(genre_data$loudness, na.rm=T)
+genre_data$speechiness[is.na(genre_data$speechiness)] <- mean(genre_data$speechiness, na.rm=T)
+```
+
+```{r}
+#Explore a bit with regression analysis and plotting
+
+#Does a faster tempo indicate a louder song?
+
+lm_tempo_loud <- lm(tempo ~ loudness, data=genre_data)
+lm_loud_tempo <- lm(loudness ~ tempo, data=genre_data)
+
+lm_tempo_loud
+lm_loud_tempo
+```
+It appears that tempo and loudness (dynamics) are positively correlated.
+
+$Tempo = 1.07*Loudness+129.73$
+
+$Loudness = 0.04809*Tempo -14.90246$
+
+Perhaps these musicians don't know how to play fast softly, or their audience just doesn't want that? Let's find that out...
+
+```{r}
+#Regression of lm_tempo_loud on popularity
+
+lm_tl_pop <- lm(popularity ~ tempo + loudness, data=genre_data)
+
+lm_tl_pop
+
+#try with an interaction term?
+
+lm_tl_pop2 <- lm(popularity ~ tempo + loudness + tempo*loudness, data=genre_data)
+
+
+lm_tl_pop2
+
+```
+It seems louder music leads to more listening. Faster music? Not so much. Louder and Faster? Not a chance.
+
+
+```{r}
 
 ```
 
