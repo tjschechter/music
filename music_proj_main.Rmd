@@ -258,6 +258,47 @@ It seems louder music leads to more listening. Faster music? Not so much. Louder
 
 
 ```{r}
+#Make some new variables...
 
+genre_data$dummy_pop <- ifelse(genre_data$popularity>50,1,0)
+
+view(genre_data)
+
+#Convert to a data table to make it easier to play with
+
+genre_data <- as.data.table(genre_data)
+
+#Clean up the table a bit
+
+genre_data <- genre_data[,c(1:18,80)]
+view(genre_data)
+
+#Find out how many song fit our "popular" criteria (Popular > 50)
+
+genre_data %>% filter(dummy_pop==1) %>% nrow()
+
+18900*3
+
+#A little over a third, it seems, are "popular"
+```
+
+```{r}
+#Let's do a breakdown of the popular
+
+#Create a new data set for the popular songs
+
+popular_songs <- genre_data[dummy_pop==1]
+
+summary(popular_songs)
+```
+
+```{r}
+#Clean it up a bit
+
+popular_songs <- popular_songs[,!c("dummy_pop")]
+
+summary(popular_songs)
+
+#Make some more datasets to play with, don't get too messy
 ```
 
