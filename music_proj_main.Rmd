@@ -344,6 +344,7 @@ lm_pop_rock_tempo <- lm(popularity ~ tempo, data=pop_rock)
 
 lm_pop_rock_tempo
 ```
+EXPLORING KEYS
 
 Interestingly, it seems tempo has a negative effect on popularity. Why is this? Let's explore with keys, whether minor or major.
 
@@ -359,4 +360,61 @@ pop_rock$dummy_major <- ifelse(pop_rock$mode=="Major",1,0)
 view(pop_rock)
 ```
 
+```{r}
+#With a dummy created, regress
 
+lm_major <- lm(popularity ~ dummy_major, data=pop_rock)
+
+tidy(lm_major)
+```
+
+It doesn't seem that picking between a major or minor key has a terribly significant effect on popularity...
+
+Shall we try with some specific keys?
+
+```{r}
+#dummy for keys to try
+
+pop_rock$dummy_amin <- ifelse(pop_rock$key=="A" & pop_rock$mode=="Minor",1,0)
+
+#create a linear model
+
+lm_amin <- lm(popularity ~ dummy_amin, data=pop_rock)
+
+lm_amin %>% tidy()
+```
+
+Not even significant in the slightest!!!
+
+Let's try another key.
+
+```{r}
+# Dummy for Eb Major
+
+pop_rock$dummy_emaj <- ifelse(pop_rock$key=="E" & pop_rock$mode=="Major",1,0)
+
+lm_emaj<- lm(popularity~dummy_emaj, data=pop_rock)
+  
+lm_emaj %>% tidy()
+```
+
+Still insignificant statistically. Let's try something else: minor key and in C
+
+
+```{r}
+#Dummy for C major OR minor
+
+
+pop_rock$dummy_c <- ifelse(pop_rock$key=="C",1,0)
+
+lm_c <- lm(popularity~dummy_c,data=pop_rock)
+
+lm_c %>% tidy()
+
+#Insignificant. What about C major?
+
+lm_c_maj <- lm(popularity~dummy_c+dummy_major+dummy_c*dummy_major, data=pop_rock)
+
+lm_c_maj %>% tidy()
+```
+Nothing significant here.
