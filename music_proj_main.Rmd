@@ -95,6 +95,11 @@ view(rev_data)
 ```
 
 ```{r}
+
+```
+
+
+```{r}
 #How many cores are we working with?
 
 detectCores(all.tests = FALSE, logical = TRUE)
@@ -104,5 +109,32 @@ detectCores(all.tests = FALSE, logical = TRUE)
 cls <- makeCluster(10)
 
 
+```
+
+
+
+
+
+
+MUSIC GENRES
+
+```{r}
+#Let's make this easier to understand
+
+genre_data <- music_genre
+
+summary(genre_data)
+
+#Let's change the tempo to numeric data
+
+genre_data$tempo <- genre_data$tempo %>% as.numeric()
+
+#Don't forget to eliminate missing values (impute)
+
+genre_data$tempo[is.na(genre_data$tempo)] <- mean(genre_data$tempo, na.rm=T)
+
+anyNA(genre_data$tempo)
+
+#SUCCESS
 ```
 
