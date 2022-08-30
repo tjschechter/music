@@ -187,3 +187,15 @@ classic_num
 #It seems there's 5k of each genre. It probably said this somewhere in the data description, but I missed that
 ```
 
+```{r}
+#visualize?
+
+genre_plot1 <- ggplot(genre_data, aes(x=energy,y=popularity, color=music_genre)) + geom_point() + facet_wrap(vars(key)) 
+
+
+genre_plot1
+
+#Wow... this is cluttered.
+
+```
+
