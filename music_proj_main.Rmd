@@ -350,7 +350,13 @@ Interestingly, it seems tempo has a negative effect on popularity. Why is this? 
 Minor keys are more sorrowful and dark, while majors tend to be brighter and happier.
 
 ```{r}
+#First we will explore major vs. minor before diving more in depth.
 
+#Create a dummy, since major vs minor is binary
+
+pop_rock$dummy_major <- ifelse(pop_rock$mode=="Major",1,0)
+
+view(pop_rock)
 ```
 
 
