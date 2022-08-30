@@ -137,4 +137,53 @@ anyNA(genre_data$tempo)
 
 #SUCCESS
 ```
+```{r}
+#What is the most represented genre in the dataset?
+
+genre_data$electr <- ifelse(genre_data$music_genre=="Electronic","TRUE","FALSE")
+
+view(genre_data)
+
+#See what other genres are here, and repeat for all
+
+#unique(genre_data$music_genre)
+
+#genre_data$blues <- ifelse(genre_data$music_genre=="Blues","TRUE","FALSE")
+#genre_data$anime <- ifelse(genre_data$music_genre=="Anime","TRUE","FALSE")
+#genre_data$rock <- ifelse(genre_data$music_genre=="Rock","TRUE","FALSE")
+#genre_data$alt <- ifelse(genre_data$music_genre=="Alternative","TRUE","FALSE")
+#genre_data$country <- ifelse(genre_data$music_genre=="Country","TRUE","FALSE")
+#genre_data$classical <- ifelse(genre_data$music_genre=="Classical","TRUE","FALSE")
+#genre_data$rap <- ifelse(genre_data$music_genre=="Rap","TRUE","FALSE")
+#genre_data$hiphop <- ifelse(genre_data$music_genre=="Hip-Hop","TRUE","FALSE")
+
+#view(genre_data)
+
+#Now it's easier to find the number of rows and we have more options
+
+
+#Above is entirely unnecessary... just use this below
+elect_num <- nrow(filter(genre_data,music_genre=="Electronic"))
+blues_num <- nrow(filter(genre_data,music_genre=="Blues"))
+classic_num <- nrow(filter(genre_data,music_genre=="Classical"))
+rock_num <-nrow(filter(genre_data,music_genre=="Rock"))
+anime_num <- nrow(filter(genre_data,music_genre=="Anime"))
+rap_num <- nrow(filter(genre_data,music_genre=="Rap"))
+hiphop_num <- nrow(filter(genre_data,music_genre=="Hip-Hop"))
+country_num <-nrow(filter(genre_data,music_genre=="Country"))
+alt_num <- nrow(filter(genre_data,music_genre=="Alternative"))
+
+elect_num
+blues_num
+hiphop_num
+rock_num
+rap_num
+country_num
+alt_num
+anime_num
+classic_num
+
+
+#It seems there's 5k of each genre. It probably said this somewhere in the data description, but I missed that
+```
 
