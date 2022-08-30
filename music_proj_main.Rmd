@@ -302,3 +302,55 @@ summary(popular_songs)
 #Make some more datasets to play with, don't get too messy
 ```
 
+```{r}
+pop_rock <- popular_songs[music_genre=="Rock"]
+pop_classic <- popular_songs[music_genre=="Classical"]
+pop_anime <- popular_songs[music_genre=="Anime"]
+pop_rap <- popular_songs[music_genre=="Rap"]
+pop_country <- popular_songs[music_genre=="Country"]
+pop_hiphop <- popular_songs[music_genre=="Hip-Hip"]
+pop_elec <- popular_songs[music_genre=="Electronic"]
+pop_alt <- popular_songs[music_genre=="Alternative"]
+pop_blues <- popular_songs[music_genre=="Blues"]
+
+pop_rock %>% summary()
+
+pop_rock_fast <- pop_rock %>% filter(tempo > 140)
+
+pop_rock_fast_plot <- ggplot(pop_rock_fast, aes(x=popularity, y=energy, color=key)) + geom_point()
+
+pop_rock_slow <- pop_rock %>% filter(tempo<101.19)
+
+pop_rock_slow_plot <- ggplot(pop_rock_slow, aes(x=popularity, y=energy, color=key)) + geom_point()
+
+pop_rock_fast_plot
+
+pop_rock_slow_plot
+```
+
+The most popular rock songs don't seem to depend on tempo very much.
+
+```{r}
+pop_rock_slow %>% nrow()
+
+pop_rock_fast %>% nrow()
+```
+
+There are almost twice as many fast popular rock songs than there are slow... interesting, but we did limit the slower ones below the first quartile while the faster ones were the whole quartile... Perhaps we can run a regression to see more.
+
+
+```{r}
+lm_pop_rock_tempo <- lm(popularity ~ tempo, data=pop_rock)
+
+lm_pop_rock_tempo
+```
+
+Interestingly, it seems tempo has a negative effect on popularity. Why is this? Let's explore with keys, whether minor or major.
+
+Minor keys are more sorrowful and dark, while majors tend to be brighter and happier.
+
+```{r}
+
+```
+
+
