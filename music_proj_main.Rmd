@@ -1,0 +1,38 @@
+---
+title: "Music Data Project"
+author: "Thomas Schechter"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r}
+#Start by loading packages
+
+library(pacman)
+
+p_load(readr,data.table,tidyverse.ggplot2,tidymodels,ranger,parsnip,purrr,magrittr,lubridate)
+
+#We'll add more as needed
+```
+```{r}
+#Make sure you commit to your repo
+
+#After that, it's time to load in datasets
+
+#Imported directly from the directory on the bottom-right
+```
+
+```{r}
+#Peruse the data, get a feel for it all. It's a lot...
+
+glimpse(lyrics_data)
+
+lyrics_sum <- summary(lyrics_data)
+
+lyrics_sum
+
+artists_sum <- artists_data %>% summary()
+
+artists_sum
+```
+
