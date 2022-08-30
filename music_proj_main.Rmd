@@ -88,6 +88,10 @@ rev_data$Rating[is.na(rev_data$Rating)] <- mean(rev_data$Rating, na.rm=T)
 anyNA(rev_data$Rating)
 
 #We now can see we have no missing values and can use the data with assurance it's clean
+
+rev_data$bad_review <- ifelse(rev_data$rev_length<=140,print("TRUE"),print("FALSE"))
+                              
+view(rev_data)
 ```
 
 ```{r}
