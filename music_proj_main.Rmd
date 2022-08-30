@@ -49,6 +49,17 @@ reviews_sum <- music_album_reviews %>% summary()
 
 genre_sum
 
+#some character, mostly numerical data
+```
+
+```{r}
+
 reviews_sum
+
+#1 column characters (the review), 1 column numeric (The rating)
+
+#Interesting that 4.0 is the first quartile in review rating... people like what they listen to?
+
+#mean is somewhat below the median for this data set. Let's check it out.
 ```
 
