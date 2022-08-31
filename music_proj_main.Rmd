@@ -270,8 +270,6 @@ genre_data <- as.data.table(genre_data)
 
 #Clean up the table a bit
 
-genre_data <- genre_data[,c(1:18,80)]
-view(genre_data)
 
 #Find out how many song fit our "popular" criteria (Popular > 50)
 
@@ -427,7 +425,14 @@ Nothing significant here.
 
 plot_tempo_pop <- ggplot(pop_rock, aes(x=tempo,y=popularity,color=key)) + geom_point()
 
-
+plot_tempo_pop
 ```
 
+```{r}
+#model with popularity, tempo, key, mode
+
+model_pop_tem_key <- lm(popularity~tempo+dummy_major+tempo*dummy_major,data=pop_rock)
+
+model_pop_tem_key %>% tidy()
+```
 
