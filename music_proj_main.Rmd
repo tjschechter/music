@@ -418,3 +418,16 @@ lm_c_maj <- lm(popularity~dummy_c+dummy_major+dummy_c*dummy_major, data=pop_rock
 lm_c_maj %>% tidy()
 ```
 Nothing significant here.
+
+
+```{r}
+#Let's visualize a few of these variables now...
+
+#Tempo and popularity?
+
+plot_tempo_pop <- ggplot(pop_rock, aes(x=tempo,y=popularity,color=key)) + geom_point()
+
+
+```
+
+
