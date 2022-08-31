@@ -436,3 +436,32 @@ model_pop_tem_key <- lm(popularity~tempo+dummy_major+tempo*dummy_major,data=pop_
 model_pop_tem_key %>% tidy()
 ```
 
+Nothing significant, what variables should we try next?
+
+```{r}
+#try acousticness
+
+model_acoustic_pop <- lm(popularity~acousticness+tempo, data=pop_rock)
+
+model_acoustic_pop %>% tidy()
+```
+Nothing.
+
+```{r}
+#Liveness?
+
+model_live <- lm(popularity~liveness+acousticness+liveness*acousticness,data=pop_rock)
+model_live %>% tidy()
+```
+LIVENESS!
+
+The reverberation and the acoustics seem to be the ticket to popular success.
+
+```{r}
+#Plot this ^^
+
+plot_model_live <- ggplot(pop_rock, aes(x=liveness,y=acousticness,color=popularity)) + geom_point()+geom_smooth(method='lm',se=T)
+
+plot_model_live
+```
+
